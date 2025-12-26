@@ -31,16 +31,11 @@ const Login = () => {
       return;
     }
 
-    if (!data.user) {
-      setError('Login failed. Please try again.');
+    if (!data.session) {
+      setError('Login failed. No session created.');
       return;
     }
-
-    if (!data.user.email_confirmed_at) {
-      setError('Please verify your email before logging in.');
-      return;
-    }
-
+    
     navigate('/dashboard/earn-rewards');
   } catch {
     setError('An unexpected error occurred');
@@ -48,8 +43,6 @@ const Login = () => {
     setIsLoading(false);
   }
 };
-
-
 
 
     const handleGoogleSignIn = async () => {

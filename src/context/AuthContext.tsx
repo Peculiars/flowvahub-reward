@@ -124,7 +124,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
 
   const signIn = (email: string, password: string) =>
-    supabase.auth.signInWithPassword({ email, password })
+  supabase.auth.signInWithPassword({ email, password })
 
   const signOut = async () => {
     await supabase.auth.signOut()
