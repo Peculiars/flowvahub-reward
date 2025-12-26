@@ -34,7 +34,7 @@ const PointsBalanceCard = () => {
             <video
               src={starGif}
               autoPlay
-              loop
+              loop={false}
               muted
               playsInline
               className="size-32"

@@ -22,7 +22,7 @@ const Loading = ({ message }: LoadingProps) => {
   }, [message]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
+    <div className="min-h-screen min-w-screen flex items-center justify-center bg-white">
       <div className="text-center">
         <div className="mb-6">
           <img 

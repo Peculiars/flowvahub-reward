@@ -13,6 +13,8 @@ const ReferAndEarn = () => {
   (rewards?.points_from_referrals ?? 0) / 25
 );
 
+console.log('rewards', rewards);
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink);
@@ -44,8 +46,7 @@ const ReferAndEarn = () => {
       </div>
       
       <div className="p-6 w-full">
-        <div className="flex items-center justify-between mb-6 w-full">
-          <div className="flex items-center justify-between mb-6 max-w-4xl">
+          <div className="flex items-center justify-between mb-6 max-w-4xl mx-auto">
             <div className="flex flex-col">
               <span className="text-2xl font-semibold text-[#9013fe]">
                 {totalReferrals}
@@ -60,7 +61,6 @@ const ReferAndEarn = () => {
               <span className="text-gray-600 text-sm">Points Earned</span>
             </div>
           </div>
-        </div>
 
         <div className="mt-6">
           <label className="block text-sm font-medium text-gray-700 mb-2">

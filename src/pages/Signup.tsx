@@ -17,11 +17,12 @@ const Signup = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const params = new URLSearchParams(window.location.search);
-  const referralCode = params.get('ref');
+  const rawRef = params.get('ref');
 
   
   const { signUp, signInWithGoogle } = useAuth();
-
+  
+  const referralCode = rawRef && rawRef !== 'undefined' ? rawRef : null;
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
@@ -48,15 +49,16 @@ const Signup = () => {
         setPassword('');
         setConfirmPassword('');
       } else {
-        const errorMsg = result.error || 'Failed to create account';
-        
-        if (errorMsg.toLowerCase().includes('already registered') || 
-            errorMsg.toLowerCase().includes('already exists') ||
-            errorMsg.toLowerCase().includes('already been registered')) {
+        const errorMsg = typeof result.error === 'string' ? result.error : result.error?.message ?? 'Failed to create account';
+        const lowerError = errorMsg.toLowerCase();    
+
+        if (lowerError.includes('already registered') || 
+            lowerError.includes('already exists') ||
+            lowerError.includes('already been registered')) {
           setError('This email is already registered. Please login instead.');
-        } else if (errorMsg.toLowerCase().includes('email address is invalid')) {
+        } else if (lowerError.includes('email address is invalid')) {
           setError('Please enter a valid email address.');
-        } else if (errorMsg.toLowerCase().includes('password')) {
+        } else if (lowerError.includes('password')) {
           setError('Password is too weak. Please use a stronger password.');
         } else {
           setError(errorMsg);

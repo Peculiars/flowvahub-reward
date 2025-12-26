@@ -12,7 +12,8 @@ export class RewardsService {
 
       if (error) {
         if (error.code === 'PGRST116') {
-          return await this.initializeUserRewards(userId);
+          console.warn('No rewards found for user. Trigger may not have run.');
+          return null;
         }
         throw error;
       }
@@ -20,27 +21,6 @@ export class RewardsService {
       return data;
     } catch (error) {
       console.error('Error fetching user rewards:', error);
-      throw error;
-    }
-  }
-  static async initializeUserRewards(userId: string): Promise<UserRewards> {
-    try {
-      const { data, error } = await supabase
-        .from('user_rewards')
-        .insert({
-          user_id: userId,
-          points: 0,
-          current_streak: 0,
-          last_claim_date: null,
-          total_claims: 0,
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-      return data;
-    } catch (error) {
-      console.error('Error initializing user rewards:', error);
       throw error;
     }
   }

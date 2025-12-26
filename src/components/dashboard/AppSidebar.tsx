@@ -50,13 +50,13 @@ export const AppSidebar = () => {
       <div className="relative px-2 pb-4">
         <button
           onClick={() => setShowUserMenu(!showUserMenu)}
-          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-100 transition-colors"
+          className="w-full flex items-center gap-3 px-3 cursor-pointer py-2.5 rounded-lg hover:bg-gray-100 transition-colors"
         >
-          <div className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white text-sm font-medium">
+          <div className="w-8 h-8 rounded-full bg-purple-200 flex items-center justify-center text-purple-600 text-lg font-semibold">
             {user?.avatar ? (
               <img src={user.avatar} alt="Avatar" className="w-full h-full rounded-full object-cover" />
             ) : (
-              user?.fullName?.charAt(0) || user?.email?.charAt(0) || "U"
+              <p className="p-3">{user?.fullName?.charAt(0) || user?.email?.charAt(0) || "U"}</p> 
             )}
           </div>
           <div className="flex-1 text-left">
