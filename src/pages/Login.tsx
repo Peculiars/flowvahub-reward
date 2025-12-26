@@ -19,32 +19,37 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setError('');
-        setIsLoading(true);
+  e.preventDefault();
+  setError('');
+  setIsLoading(true);
 
-      try {
-        const result = await signIn(email, password);
+  try {
+    const { data, error } = await signIn(email, password);
 
-        if (!result.success) {
-          setError(result.error || 'Failed to sign in');
-          return;
-        }
+    if (error) {
+      setError(error.message);
+      return;
+    }
 
-        const isVerified = localStorage.getItem('email_verified');
+    if (!data.user) {
+      setError('Login failed. Please try again.');
+      return;
+    }
 
-        if (!isVerified) {
-          setError('Please verify your email before logging in.');
-          return;
-        }
+    if (!data.user.email_confirmed_at) {
+      setError('Please verify your email before logging in.');
+      return;
+    }
 
-        navigate('/dashboard/earn-rewards');
-      } catch (err) {
-        setError('An unexpected error occurred');
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    navigate('/dashboard/earn-rewards');
+  } catch {
+    setError('An unexpected error occurred');
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
 
 
     const handleGoogleSignIn = async () => {
